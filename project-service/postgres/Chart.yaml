@@ -1,0 +1,15 @@
+apiVersion: v2
+name: postgres
+version: 1.0.0
+appVersion: "16.4"
+type: application
+description: Triple instances PostgreSQL
+kubeVersion: ">=1.30.0-0"
+keywords: [database, sql]
+maintainers:
+  - name: InchanterX
+    email: inchanterx-work@gmail.com
+deprecated: false
+annotations:
+  artifacthub.io/changes: |
+    - release

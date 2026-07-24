@@ -1,0 +1,48 @@
+replicaCount: 3
+
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: inchanterx/faberge-project-service
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+port: 8000
+
+postgres:
+  host: pg-postgres-service
+  port: 5432
+  user: admin
+  database: project_db
+  secretName: pg-postgres
+  secretKey: POSTGRES_PASSWORD
+  minConnections: 1
+  maxConnections: 50
+
+kafka:
+  host: rp-redpanda-service
+  port: 9092
+
+ingress:
+  enabled: true
+  host: project.local
+
+parameters:
+  log_level: INFO
+  kafka_topic_answers: project-answers
+  kafka_topic_comments: project-comments
+  kafka_topic_profile: user.created
+  kafka_topic_events: project-events
+  kafka_group_id: project-service
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    memory: 1Gi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

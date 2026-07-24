@@ -1,0 +1,15 @@
+apiVersion: v2
+name: redpanda
+version: 1.0.0
+appVersion: "v26.1.13"
+type: application
+description: redpanda
+kubeVersion: ">=1.30.0-0"
+keywords: [redpanda, event_broker]
+maintainers:
+  - name: InchanterX
+    email: inchanterx-work@gmail.com
+deprecated: false
+annotations:
+  artifacthub.io/changes: |
+    - release

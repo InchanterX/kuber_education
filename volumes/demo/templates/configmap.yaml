@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: playground-{{ include "demo.fullname" . }}
+  labels:
+    {{- include "demo.componentLabels" (dict "root" . "component" "worker") | nindent 4}}
+data:
+  repo: {{ required "image.repository is required!" .Values.image.repository | quote }}
+
+  {{- if not (has .Values.mode (list "dev" "staging" "prod"))}}
+  {{-  fail "No such mode" }}
+  {{- end}}
+
+  without_tpl: {{ .Values.greetingTemplate | quote }}
+  with_tpl: {{ tpl .Values.greetingTemplate . | quote }}
+
+
+  {{- if hasKey .Values "replicaCount"}}
+  r1: {{ .Values.replicaCount | quote}}
+  {{- else }}
+  r1: "5"
+  {{- end}}

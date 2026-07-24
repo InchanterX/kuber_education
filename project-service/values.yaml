@@ -1,0 +1,19 @@
+global:
+  postgres:
+    user: admin
+    database: project_db
+    port: 5432
+    chartName: postgres
+  kafka:
+    port: 9092
+    chartName: redpanda
+
+postgres:
+  enabled: true
+
+redpanda:
+  enabled: true
+
+project:
+  enabled: true
+  replicaCount: 1

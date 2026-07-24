@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: volume-slow
+spec:
+  capacity:
+    storage: 512M
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/volume1"

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx
+  labels:
+    type: net
+    cluster: prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      type: net
+  template:
+    metadata:
+      labels:
+        type: net
+    spec:
+      containers:
+        - name: nginx
+          image: nginx

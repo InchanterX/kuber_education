@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: name
+  labels:
+    type: prod
+spec:
+	containers:
+    - name: name
+      image: image
+      dnsPolicy: Default/ClusterFirst/ClusterFirstWithHostNet/None # политика DNS, определяет как он будет работать
+      dnsConfig:
+        nameservers:
+          - ip
+        searches:
+          - ns1.svc.cluster-domain.example
+          - my.dns.search.suffix
+        options:
+          - name: nmae
+            value: "2"
+          - name: name

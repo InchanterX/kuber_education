@@ -1,0 +1,15 @@
+apiVersion: v2
+name: project-service
+version: 1.0.0
+appVersion: "latest"
+type: application
+description: project service
+kubeVersion: ">=1.30.0"
+keywords: ["microservice", "python"]
+maintainers:
+  - name: InchanterX
+    email: inchanterx-work@gmail.com
+deprecated: false
+annotations:
+  artifacthub.io/changes: |
+    - release

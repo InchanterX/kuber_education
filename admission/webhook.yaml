@@ -1,0 +1,26 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validating-webhook
+webhooks:
+  - name: test.example.com
+    admissionReviewVersions: ["v1"] # какие версии формата AdmissionReview вебхук умеет принимать/отдавать
+    sideEffects: None # есть ли у вебхука побочные эффекты (меняет ли он что-то за пределами самого запроса на допуск)
+    # None - не меняет
+    # NoneOnDryRun - эффект есть, но при dry-run его не будет
+    failurePolicy: Fail
+    clientConfig:
+      service:
+        name: admission-python
+        namespace: default
+        path: /validate/deployments
+        port: 8001
+      caBundle: <сертификат в base64>
+    rules:
+      - apiGroups: ["apps"]
+        resources:
+          - "deployments"
+        apiVersions:
+          - "*"
+        operations:
+          - CREATE

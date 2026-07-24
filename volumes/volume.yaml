@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-pod
+spec:
+  containers:
+    - name: volume-con
+      image: debian
+      command: ["/bin/sh"]
+      args: ["-c", "sleep 3600"]
+      volumeMounts:
+        - name: emptydir-volume
+          mountPath: /mnt/fast-ephemeral
+        - name: hostpath-volume
+          mountPath: /mnt/slow-persistent
+
+  volumes:
+    - name: emptydir-volume
+      emptyDir:
+        medium: Memory
+    - name: hostpath-volume
+      hostPath:
+        path: /mnt/hostpath
+        type: DirectoryOrCreate

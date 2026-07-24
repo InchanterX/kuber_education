@@ -1,0 +1,94 @@
+{{- include "postgres.validateValues" . }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "postgres.fullname" . }}
+  labels:
+    {{- include "postgres.labels" . | nindent 4}}
+spec:
+  selector:
+    matchLabels:
+      {{- include "postgres.selectorLabels" . | nindent 6}}
+  serviceName: {{ include "postgres.headlessName" . }}
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        {{- include "postgres.labels" . | nindent 8}}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      containers:
+      - name: {{ include "postgres.name" . }}
+        image: {{ include "postgres.image" .}}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- with .Values.config }}
+        args:
+          {{- range $key, $value := . }}
+          - -c
+          - {{ $key }}={{ $value }}
+          {{- end }}
+        {{- end }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            memory: {{ .Values.resources.limits.memory }}
+        ports:
+        - name: postgres
+          containerPort: {{ include "postgres.pg_port" . }}
+        startupProbe:
+          exec:
+            command: ["pg_isready", "-U", "{{ include "postgres.pg_user" . }}", "-d", "{{ include "postgres.pg_database" . }}"]
+          periodSeconds: 5
+          failureThreshold: 30
+          :
+          exec:
+            command: ["pg_isready", "-U", "{{ include "postgres.pg_user" . }}", "-d", "{{ include "postgres.pg_database" . }}"]
+          periodSeconds: 10
+          timeoutSeconds: 3
+        livenessProbe:
+          exec:
+            command: ["pg_isready", "-U", "{{ include "postgres.pg_user" . }}", "-d", "{{ include "postgres.pg_database" . }}"]
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
+        volumeMounts:
+        - name: {{ include "postgres.fullname" . }}
+          mountPath: {{ .Values.mount.path }}
+        envFrom:
+        - configMapRef:
+            name: {{ include "postgres.fullname" . }}-config
+        - secretRef:
+            name: {{ include "postgres.secretName" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{ . | toYaml | nindent 8}}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{ . | toYaml | nindent 8}}
+      {{- end }}
+      {{- if not .Values.persistence.enabled }}
+      volumes:
+        - name: {{ include "postgres.fullname" .}}
+          emptyDir: {}
+      {{- end}}
+  {{- if .Values.persistence.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "postgres.fullname" . }}
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        {{- if .Values.persistence.storageClassName }}
+        storageClassName: {{ .Values.persistence.storageClassName | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size }}
+  {{- end}}

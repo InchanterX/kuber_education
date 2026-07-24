@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  annotations: # настройки поведения Ingress - !!! зависят от контроллера !!!
+    nginx.ingress.kubernetes.io/rewrite-target: / # у трафика, при достижении mys-service внутри кластера, будет переписан url-path /svc1 на / - сервис не знает о путях до него.
+spec:
+  rules: # правила маршрутизации трафика
+  - host: hello-world.com # запросы с какого домена маршрутизируются правилом
+    http: # куда эти запросы проксировать
+      paths: # список путей внутри хоста
+      - path: /svc1 # hello-world.com/svc1 идет на нижеуказанный сервис
+        pathType: Prefix # Prefix/Exact/ImplementationSpecific
+        backend:
+          service:
+            name: nginx
+            port: # на какой порт сервиса
+              number: 9090

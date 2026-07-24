@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Allow
+  startingDeadlineSeconds: 100
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  suspend: false
+  jobTemplate:
+    spec:
+      completions: 5
+      parallelism: 5
+      activeDeadlineSeconds: 100
+      backoffLimit: 4
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: hello
+              image: busybox
+              command:
+              - /bin/sh
+              - -c
+              - date; echo Hello from the Kubernetes cluster

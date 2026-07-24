@@ -1,0 +1,42 @@
+replicaCount: 1
+
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: redpandadata/redpanda
+  pullPolicy: IfNotPresent
+  tag: ""
+
+ports:
+  kafka_api: 9092
+  admin_api: 9644
+  rpc: 33145
+
+persistence:
+  enabled: true
+  size: 1Gi
+  storageClassName: ""
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    memory: 1536Mi
+
+config:
+  parameters:
+    smp: 1
+    memory: 1G
+    reserve_memory: 0M
+    node_id: 0
+    kafka_addr: 0.0.0.0:9092
+  default_log_level: error
+
+mount:
+  path: "/var/lib/redpanda/data"
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

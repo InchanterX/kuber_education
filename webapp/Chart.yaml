@@ -1,0 +1,15 @@
+apiVersion: v2
+name: webapp
+version: 1.0.0
+appVersion: "1.0.0"
+type: application
+description: "A simple webapp"
+kubeVersion: ">1.30.0"
+keywords: [web, app]
+maintainers:
+  - name: InchanterX
+    email: inchanterx-work@gmail.com
+deprecated: false
+annotations:
+  artifacthub.io/changes:
+    - release

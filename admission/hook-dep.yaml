@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admission-python
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admission-python
+  template:
+    metadata:
+      labels:
+        app: admission-python
+    spec:
+      serviceAccountName: admission-python
+      containers:
+      - name: admission-python
+        image: webhook:v1
+        ports:
+        - containerPort: 8001

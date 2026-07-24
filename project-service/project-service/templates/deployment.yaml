@@ -1,0 +1,78 @@
+{{- include "project.validateValues" .}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "project.deployment" .}}
+  labels:
+    {{- include "project.labels" . | nindent 4}}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "project.selectorLabels" . | nindent 6}}
+  template:
+    metadata:
+      labels:
+        {{- include "project.labels" . | nindent 8}}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      containers:
+      - name: {{ include "project.fullname" . }}
+        image: {{ include "project.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: project
+          containerPort: {{ .Values.port }}
+        envFrom:
+        - configMapRef:
+            name: {{ include "project.config" . }}
+        env:
+        - name: PG_USER
+          value: {{ include "project.pg_user" . | quote }}
+        - name: PG_HOST
+          value: {{ .Values.postgres.host | quote }}
+        - name: PG_PORT
+          value: {{ include "project.pg_port" . | quote }}
+        - name: PG_DB
+          value: {{ include "project.pg_database" . | quote }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.postgres.secretName }}
+              key: {{ .Values.postgres.secretKey}}
+        - name: DATABASE_DSN
+          value: postgresql://$(PG_USER):$(POSTGRES_PASSWORD)@$(PG_HOST):$(PG_PORT)/$(PG_DB)
+        readinessProbe:
+          httpGet:
+            path: /project/health
+            port: project
+          failureThreshold: 3
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 2
+          initialDelaySeconds: 120
+        livenessProbe:
+          httpGet:
+            path: /project/health
+            port: project
+          periodSeconds: 5
+          failureThreshold: 30
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            memory: {{ .Values.resources.limits.memory }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- . | toYaml | nindent 8}}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- . | toYaml | nindent 8}}
+      {{- end }}

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "postgres.fullname" . }}-config
+data:
+  POSTGRES_DB: {{ include "postgres.pg_database" . | quote}}
+  POSTGRES_USER: {{ include "postgres.pg_user" . | quote}}
+  PGDATA: {{ .Values.mount.pgdata | default "/var/lib/postgresql/data/pgdata" | quote }}
