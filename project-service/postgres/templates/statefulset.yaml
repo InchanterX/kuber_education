@@ -43,10 +43,6 @@ spec:
             command: ["pg_isready", "-U", "{{ include "postgres.pg_user" . }}", "-d", "{{ include "postgres.pg_database" . }}"]
           periodSeconds: 5
           failureThreshold: 30
-          :
-          exec:
-            command: ["pg_isready", "-U", "{{ include "postgres.pg_user" . }}", "-d", "{{ include "postgres.pg_database" . }}"]
-          periodSeconds: 10
           timeoutSeconds: 3
         livenessProbe:
           exec:

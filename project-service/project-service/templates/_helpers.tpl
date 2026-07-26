@@ -69,7 +69,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- fail "postgres data is required" -}}
 {{- end }}
 {{- if not .Values.kafka }}
-{{- fail "postgres data is required" -}}
+{{- fail "kafka data is required" -}}
 {{- end }}
 {{- end }}
 
@@ -89,13 +89,40 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- dig "kafka" "port" .Values.kafka.port (.Values.global | default dict) -}}
 {{- end }}
 
-{{- define "project.postgres_host" -}}
-{{- end }}
-
 {{- define "project.pgChartName" -}}
-{{- dig "global" "postgres" "chartName" (.Values.postgres.chartName | default "postgres") .Values -}}
+{{- dig "postgres" "chartName" (.Values.postgres.chartName | default "postgres") (.Values.global | default dict) -}}
 {{- end }}
 
 {{- define "project.kafkaChartName" -}}
-{{- dig "global" "kafka" "chartName" (.Values.kafka.chartName | default "redpanda") .Values -}}
+{{- dig "kafka" "chartName" (.Values.kafka.chartName | default "redpanda") (.Values.global | default dict) -}}
+{{- end }}
+
+{{- define "project.pgFullname" -}}
+{{- $name := include "project.pgChartName" . -}}
+{{- if contains $name .Release.Name -}}
+{{- .Release.Name -}}
+{{- else -}}
+{{- printf "%s-%s" .Release.Name $name -}}
+{{- end -}}
+{{- end }}
+
+{{- define "project.kafkaFullname" -}}
+{{- $name := include "project.kafkaChartName" . -}}
+{{- if contains $name .Release.Name -}}
+{{- .Release.Name -}}
+{{- else -}}
+{{- printf "%s-%s" .Release.Name $name -}}
+{{- end -}}
+{{- end }}
+
+{{- define "project.postgres_host" -}}
+{{- printf "%s-service" (include "project.pgFullname" .) -}}
+{{- end }}
+
+{{- define "project.kafka_host" -}}
+{{- printf "%s-service" (include "project.kafkaFullname" .) -}}
+{{- end }}
+
+{{- define "project.postgres_secretName" -}}
+{{- include "project.pgFullname" . -}}
 {{- end }}

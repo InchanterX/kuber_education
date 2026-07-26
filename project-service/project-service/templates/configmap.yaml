@@ -9,7 +9,7 @@ data:
   KAFKA_TOPIC_PROFILE: {{ .Values.parameters.kafka_topic_profile | quote }}
   KAFKA_TOPIC_EVENTS: {{ .Values.parameters.kafka_topic_events | quote }}
   KAFKA_GROUP_ID: {{ .Values.parameters.kafka_group_id | quote }}
-  KAFKA_BOOTSTRAP: {{ printf "%s:%v" .Values.kafka.host ( include "project.kafka_port" . | int) | quote }}
+  KAFKA_BOOTSTRAP: {{ printf "%s:%v" (.Values.kafka.host | default (include "project.kafka_host" .)) ( include "project.kafka_port" . | int) | quote }}
   HTTP_HOST: "0.0.0.0"
   HTTP_PORT: {{ .Values.port | quote }}
   DATABASE_MIN_CONNECTIONS: {{ .Values.postgres.minConnections | quote }}

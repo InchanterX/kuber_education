@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    helm.sh/chart: project-service-1.0.0
+    app.kubernetes.io/name: project-service
+    app.kubernetes.io/instance: project
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: project-service
+      app.kubernetes.io/instance: project
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: project-service-1.0.0
+        app.kubernetes.io/name: project-service
+        app.kubernetes.io/instance: project
+        app.kubernetes.io/version: "latest"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: microservice
+      annotations:
+        checksum/config: 8227be5e7b97f71e1815fa63bb2856f102564898325024b2863e73be4c96d14f
+    spec:
+      containers:
+      - name: app
+        image: inchanterx/faberge-project-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: project
+          containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: api-config
+        env:
+        - name: PG_USER
+          value: "admin"
+        - name: PG_HOST
+          value: "project-postgres-service"
+        - name: PG_PORT
+          value: "5432"
+        - name: PG_DB
+          value: "project_db"
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-auth
+              key: POSTGRES_PASSWORD
+        - name: DATABASE_DSN
+          value: postgresql://$(PG_USER):$(POSTGRES_PASSWORD)@$(PG_HOST):$(PG_PORT)/$(PG_DB)
+        readinessProbe:
+          httpGet:
+            path: /project/health
+            port: project
+          failureThreshold: 3
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 2
+          initialDelaySeconds: 120
+        livenessProbe:
+          httpGet:
+            path: /project/health
+            port: project
+          periodSeconds: 5
+          failureThreshold: 30
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            memory: 1Gi

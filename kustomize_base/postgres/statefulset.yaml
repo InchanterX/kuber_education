@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset
+  labels:
+    helm.sh/chart: postgres-1.0.0
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/instance: project
+    app.kubernetes.io/version: "16.4"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: database
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: postgres
+      app.kubernetes.io/instance: project
+  serviceName: postgres-headless
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: postgres-1.0.0
+        app.kubernetes.io/name: postgres
+        app.kubernetes.io/instance: project
+        app.kubernetes.io/version: "16.4"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: database
+      annotations:
+        checksum/config: f6e7761cfecb17006ad4797dce882e11ba9248db017aba568f444499a610c666
+    spec:
+      containers:
+      - name: database
+        image: postgres:16.4
+        imagePullPolicy: IfNotPresent
+        args:
+          - -c
+          - max_connections=200
+          - -c
+          - shared_buffers=128MB
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+          limits:
+            memory: 512Mi
+        ports:
+        - name: postgres
+          containerPort: 5432
+        startupProbe:
+          exec:
+            command: ["pg_isready", "-U", "admin", "-d", "project_db"]
+          periodSeconds: 5
+          failureThreshold: 30
+          timeoutSeconds: 3
+        livenessProbe:
+          exec:
+            command: ["pg_isready", "-U", "admin", "-d", "project_db"]
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
+        volumeMounts:
+        - name: project-postgres
+          mountPath: /var/lib/postgresql/data
+        envFrom:
+        - configMapRef:
+            name: postgres-config
+        - secretRef:
+            name: postgres-auth
+  volumeClaimTemplates:
+    - metadata:
+        name: project-postgres
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

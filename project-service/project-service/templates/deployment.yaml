@@ -31,7 +31,7 @@ spec:
         - name: PG_USER
           value: {{ include "project.pg_user" . | quote }}
         - name: PG_HOST
-          value: {{ .Values.postgres.host | quote }}
+          value: {{ .Values.postgres.host | default (include "project.postgres_host" .) | quote }}
         - name: PG_PORT
           value: {{ include "project.pg_port" . | quote }}
         - name: PG_DB
@@ -39,7 +39,7 @@ spec:
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ .Values.postgres.secretName }}
+              name: {{ .Values.postgres.secretName | default (include "project.postgres_secretName" .) }}
               key: {{ .Values.postgres.secretKey}}
         - name: DATABASE_DSN
           value: postgresql://$(PG_USER):$(POSTGRES_PASSWORD)@$(PG_HOST):$(PG_PORT)/$(PG_DB)

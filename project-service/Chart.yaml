@@ -6,12 +6,12 @@ version: 1.0.0
 appVersion: "1.0.0"
 
 dependencies:
-  - name: project-postgres
+  - name: postgres
     version: "1.0.0"
     repository: "file://../postgres"
     alias: postgres
     condition: postgres.enabled
-  - name: project-redpanda
+  - name: redpanda
     version: "1.0.0"
     repository: "file://../redpanda"
     alias: redpanda

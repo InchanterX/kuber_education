@@ -11,17 +11,17 @@ image:
 port: 8000
 
 postgres:
-  host: pg-postgres-service
+  host: ""
   port: 5432
   user: admin
   database: project_db
-  secretName: pg-postgres
+  secretName: ""
   secretKey: POSTGRES_PASSWORD
   minConnections: 1
   maxConnections: 50
 
 kafka:
-  host: rp-redpanda-service
+  host: ""
   port: 9092
 
 ingress:

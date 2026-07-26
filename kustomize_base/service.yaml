@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+  labels:
+    helm.sh/chart: project-service-1.0.0
+    app.kubernetes.io/name: project-service
+    app.kubernetes.io/instance: project
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: microservice
+spec:
+  selector:
+    app.kubernetes.io/name: project-service
+    app.kubernetes.io/instance: project
+  ports:
+    - port: 8000
+      targetPort: project

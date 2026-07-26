@@ -29,7 +29,7 @@ helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | 
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-app.kubernetes.io/component: database
+app.kubernetes.io/component: broker
 {{- end }}
 
 {{- define "redpanda.selectorLabels" -}}
@@ -39,11 +39,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 
 {{- define "redpanda.image" -}}
 {{- printf "%s:%s" .Values.image.repository (.Values.image.tag | default .Chart.AppVersion) }}
-{{- end }}
-
-{{/* Имя секрета с паролем */}}
-{{- define "redpanda.secretName" -}}
-{{- .Values.auth.existingSecret | default (include "redpanda.fullname" .) }}
 {{- end }}
 
 {{- define "redpanda.validateValues" -}}
