@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  template:
+    spec:
+      containers:
+      - name: app
+        resources:
+          requests:
+            cpu: 500m
+            memory: 750Mi
+          limits:
+            cpu: 1Gi
+            memory: 1536Mi
+        env:
+        - name: SOME_ENV
+          value: "some value"
+        - $patch: replace
+      livenessProbe: null

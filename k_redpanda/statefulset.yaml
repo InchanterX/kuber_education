@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redpanda
+  labels:
+    helm.sh/chart: redpanda-1.0.0
+    app.kubernetes.io/name: redpanda
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v26.1.13"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: broker
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: redpanda
+      app.kubernetes.io/instance: test
+  serviceName: redpanda-headless
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: redpanda-1.0.0
+        app.kubernetes.io/name: redpanda
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/version: "v26.1.13"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: broker
+    spec:
+      initContainers:
+      - name: fix-permissions
+        image: redpandadata/redpanda:v26.1.13
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-c", "chown -R 101:101 /var/lib/redpanda/data"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: test-redpanda
+          mountPath: /var/lib/redpanda/data
+      containers:
+      - name: redpanda
+        image: redpandadata/redpanda:v26.1.13
+        imagePullPolicy: IfNotPresent
+        command:
+          - /bin/sh
+          - -c
+          - >
+            exec rpk redpanda start
+            --overprovisioned
+            --check=false
+            --advertise-kafka-addr ${POD_NAME}.redpanda-headless.${POD_NAMESPACE}.svc.cluster.local:9092
+            --kafka-addr 0.0.0.0:9092
+            --memory 1G
+            --node-id 0
+            --reserve-memory 0M
+            --smp 1
+            --default-log-level=error
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            memory: 1536Mi
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        ports:
+        - name: kafka-api
+          containerPort: 9092
+        - name: admin-api
+          containerPort: 9644
+        - name: rpc
+          containerPort: 33145
+        readinessProbe:
+          httpGet:
+            path: /v1/status/ready
+            port: admin-api
+          failureThreshold: 3
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /v1/status/ready
+            port: admin-api
+        volumeMounts:
+        - name: test-redpanda
+          mountPath: /var/lib/redpanda/data
+      securityContext:
+          runAsUser: 101
+          runAsGroup: 101
+          fsGroup: 101
+          fsGroupChangePolicy: "OnRootMismatch"
+  volumeClaimTemplates:
+    - metadata:
+        name: test-redpanda
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

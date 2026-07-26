@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redpanda
+spec:
+  selector:
+    app.kubernetes.io/name: redpanda
+    app.kubernetes.io/instance: test
+  ports:
+    - port: 9092
+      targetPort: kafka-api

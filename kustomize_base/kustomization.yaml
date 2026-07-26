@@ -21,3 +21,20 @@ namespace: project-service
 replicas:
   - name: app
     count: 3
+# patches:
+  # - path: patches/deployment.yaml
+  # - path: patches/ingress.yaml
+  #   target:
+  #     kind: Ingress
+  #     name: app
+  # - path: patches/job.yaml
+  #   target:
+  #     kind: Job
+  #     name: migration
+  # - patch: |-
+  #     - op: add
+  #       path: /spec/template/spec/containers/0/command/-
+  #       value: "pwd"
+  #   target:
+  #     kind: Job
+  #     name: migration

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redpanda-headless
+spec:
+  selector:
+    app.kubernetes.io/name: redpanda
+    app.kubernetes.io/instance: test
+  clusterIP: None
+  ports:
+    - port: 9092
+      targetPort: kafka-api
