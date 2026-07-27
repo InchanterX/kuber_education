@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redpanda
+spec:
+  template:
+    spec:
+      containers:
+        - name: redpanda
+          resources:
+            requests:
+              memory: 750Mi
+            limits:
+              memory: 1Gi

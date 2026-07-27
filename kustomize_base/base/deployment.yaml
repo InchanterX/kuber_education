@@ -3,11 +3,10 @@ kind: Deployment
 metadata:
   name: app
   labels:
-    helm.sh/chart: project-service-1.0.0
     app.kubernetes.io/name: project-service
     app.kubernetes.io/instance: project
     app.kubernetes.io/version: "latest"
-    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/managed-by: Me
     app.kubernetes.io/component: microservice
 spec:
   replicas: 1
@@ -22,10 +21,8 @@ spec:
         app.kubernetes.io/name: project-service
         app.kubernetes.io/instance: project
         app.kubernetes.io/version: "latest"
-        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/managed-by: Me
         app.kubernetes.io/component: microservice
-      annotations:
-        checksum/config: 8227be5e7b97f71e1815fa63bb2856f102564898325024b2863e73be4c96d14f
     spec:
       containers:
       - name: app

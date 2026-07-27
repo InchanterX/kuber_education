@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+namespace: project-service-dev
+replicas:
+  - name: app
+    count: 1
+labels:
+  - pairs:
+      enviroment: dev
+configMapGenerator:
+  - name: api-config
+    behavior: merge
+    literals:
+      - KAFKA_BOOTSTRAP=redpanda.event-brocker-dev.svc.cluster.local:9092
+patches:
+  - path: patches/deployment.yaml
+  - path: patches/postgres/statefulset.yaml

@@ -5,7 +5,4 @@ resources:
   - service.yaml
   - statefulset.yaml
   - namespace.yaml
-replicas:
-  - name: redpanda
-    count: 1
 namespace: event-brocker

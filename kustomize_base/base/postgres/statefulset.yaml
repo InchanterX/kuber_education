@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/name: postgres
     app.kubernetes.io/instance: project
     app.kubernetes.io/version: "16.4"
-    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/managed-by: Me
     app.kubernetes.io/component: database
 spec:
   selector:
@@ -23,10 +23,8 @@ spec:
         app.kubernetes.io/name: postgres
         app.kubernetes.io/instance: project
         app.kubernetes.io/version: "16.4"
-        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/managed-by: Me
         app.kubernetes.io/component: database
-      annotations:
-        checksum/config: f6e7761cfecb17006ad4797dce882e11ba9248db017aba568f444499a610c666
     spec:
       containers:
       - name: database

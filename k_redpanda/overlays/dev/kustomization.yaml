@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+replicas:
+  - name: redpanda
+    count: 1
+namespace: event-brocker-dev
+labels:
+  - pairs:
+      enviroment: dev
+patches:
+  - path: patches/statefulset.yaml
+    target:
+      kind: Statefulset
+      name: redpanda
