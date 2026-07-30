@@ -7,8 +7,10 @@ metadata:
     app.kubernetes.io/name: project-service
     app.kubernetes.io/instance: project
     app.kubernetes.io/version: "latest"
-    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: microservice
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
 spec:
   completions: 1
   parallelism: 1
