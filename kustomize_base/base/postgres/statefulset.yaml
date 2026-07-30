@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/managed-by: Me
     app.kubernetes.io/component: database
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   selector:
     matchLabels:
