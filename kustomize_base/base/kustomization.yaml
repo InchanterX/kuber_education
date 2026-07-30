@@ -11,7 +11,13 @@ configMapGenerator:
 - envs:
   - config.txt
   name: api-config
+  options:
+    annotations:
+      argocd.argoproj.io/sync-wave: "-1"
 secretGenerator:
 - envs:
   - secret.txt
   name: postgres-auth
+  options:
+    annotations:
+      argocd.argoproj.io/sync-wave: "-2"

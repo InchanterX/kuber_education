@@ -8,3 +8,6 @@ configMapGenerator:
   - name: postgres-config
     envs:
       - config.txt
+generatorOptions:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
