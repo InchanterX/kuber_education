@@ -10,4 +10,3 @@ spec:
     requests.storage: "10Gi"
     limits.cpu: "3"
     limits.memory: "3Gi"
-    limits.storage: "10Gi"

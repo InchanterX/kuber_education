@@ -19,7 +19,7 @@ spec:
       min:
         cpu: 100m
         memory: 10Mi
-    - default:
+      default:
         cpu: 300m
         memory: 500Mi
       defaultRequest:
