@@ -13,7 +13,7 @@ spec:
     targetRevision: main
     path: k_infra/overlays/dev
 
-  description:
+  destination:
     name: in-cluster
     namespace: infrastructure-dev
 
