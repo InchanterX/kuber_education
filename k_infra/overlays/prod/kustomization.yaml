@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+namespace: infrastructure-prod
+patches:
+  - patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: project-service-prod
+    target:
+      kind: LimitRange
+      name: project-service
+  - patch: |-
+      - op: replace
+        path: /metadata/namespace
+        value: project-service-prod
+    target:
+      kind: ResourceQuota
+      name: project-service

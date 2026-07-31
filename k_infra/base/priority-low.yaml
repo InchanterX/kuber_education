@@ -1,0 +1,8 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: low
+value: 10
+globalDefault: false
+preemptionPolicy: Never
+description: "Low priorify class for pods that can be harmlessly evicted."

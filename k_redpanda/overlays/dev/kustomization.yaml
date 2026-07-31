@@ -14,3 +14,10 @@ patches:
     target:
       kind: Statefulset
       name: redpanda
+  - patch: |-
+      - op: replace
+        path: /spec/minAvailable
+        value: 1
+    target:
+      name: postgres
+      kind: PodDisruptionBudget

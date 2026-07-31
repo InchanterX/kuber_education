@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: project-service
+  namespace: project-service
+spec:
+  limits:
+    - type: Pod
+      max:
+        cpu: "1"
+        memory: 1Gi
+      min:
+        cpu: 250m
+        memory: 125Mi
+    - type: Container
+      max:
+        cpu: "1"
+        memory: 1Gi
+      min:
+        cpu: 100m
+        memory: 10Mi
+    - default:
+        cpu: 300m
+        memory: 500Mi
+      defaultRequest:
+        cpu: 200m
+        memory: 250Mi
+    - type: PersistentVolumeClaim
+      min:
+        storage: 1Gi
+      max:
+        storage: 10Gi

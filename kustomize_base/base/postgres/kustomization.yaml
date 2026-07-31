@@ -4,6 +4,7 @@ resources:
   - service.yaml
   - headless.yaml
   - statefulset.yaml
+  - postgres-pdb.yaml
 configMapGenerator:
   - name: postgres-config
     envs:

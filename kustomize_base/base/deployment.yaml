@@ -12,18 +12,18 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: project-service
+      app.kubernetes.io/name: project-service-pod
       app.kubernetes.io/instance: project
   template:
     metadata:
       labels:
-        helm.sh/chart: project-service-1.0.0
-        app.kubernetes.io/name: project-service
+        app.kubernetes.io/name: project-service-pod
         app.kubernetes.io/instance: project
         app.kubernetes.io/version: "latest"
         app.kubernetes.io/managed-by: Me
         app.kubernetes.io/component: microservice
     spec:
+      priorityClassName: middle
       containers:
       - name: app
         image: inchanterx/faberge-project-service:latest

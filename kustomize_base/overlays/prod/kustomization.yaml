@@ -19,3 +19,17 @@ configMapGenerator:
 patches:
   - path: patches/deployment.yaml
   - path: patches/postgres/statefulset.yaml
+  - patch: |-
+      - op: replace
+        path: /spec/minAvailable
+        value: 1
+    target:
+      name: postgres
+      kind: PodDisruptionBudget
+  - patch: |-
+      - op: replace
+        path: /spec/minAvailable
+        value: 2
+    target:
+      name: pods
+      kind: PodDisruptionBudget

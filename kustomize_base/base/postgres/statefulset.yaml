@@ -3,7 +3,6 @@ kind: StatefulSet
 metadata:
   name: statefulset
   labels:
-    helm.sh/chart: postgres-1.0.0
     app.kubernetes.io/name: postgres
     app.kubernetes.io/instance: project
     app.kubernetes.io/version: "16.4"
@@ -14,20 +13,20 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: postgres
+      app.kubernetes.io/name: postgres-pod
       app.kubernetes.io/instance: project
   serviceName: postgres-headless
   replicas: 1
   template:
     metadata:
       labels:
-        helm.sh/chart: postgres-1.0.0
-        app.kubernetes.io/name: postgres
+        app.kubernetes.io/name: postgres-pod
         app.kubernetes.io/instance: project
         app.kubernetes.io/version: "16.4"
         app.kubernetes.io/managed-by: Me
         app.kubernetes.io/component: database
     spec:
+      priorityClassName: high
       containers:
       - name: database
         image: postgres:16.4

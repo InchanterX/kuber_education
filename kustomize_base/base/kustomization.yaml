@@ -6,6 +6,8 @@ resources:
 - job.yaml
 - ingress.yaml
 - namespace.yaml
+- service-pdb.yaml
+- service-hpa.yaml
 - ./postgres
 configMapGenerator:
 - envs:

@@ -12,20 +12,20 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: redpanda
+      app.kubernetes.io/name: redpanda-pod
       app.kubernetes.io/instance: test
   serviceName: redpanda-headless
   replicas: 1
   template:
     metadata:
       labels:
-        helm.sh/chart: redpanda-1.0.0
-        app.kubernetes.io/name: redpanda
+        app.kubernetes.io/name: redpanda-pod
         app.kubernetes.io/instance: test
         app.kubernetes.io/version: "v26.1.13"
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: broker
     spec:
+      priorityClassName: critical
       initContainers:
       - name: fix-permissions
         image: redpandadata/redpanda:v26.1.13
