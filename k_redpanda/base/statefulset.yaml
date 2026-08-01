@@ -97,7 +97,9 @@ spec:
           fsGroup: 101
           fsGroupChangePolicy: "OnRootMismatch"
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: test-redpanda
         argocd.argoproj.io/sync-options: Prune=false
       spec:

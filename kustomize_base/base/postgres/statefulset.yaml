@@ -72,7 +72,9 @@ spec:
         - secretRef:
             name: postgres-auth
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: project-postgres
         argocd.argoproj.io/sync-options: Prune=false
       spec:
