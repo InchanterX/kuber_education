@@ -74,6 +74,7 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: project-postgres
+        argocd.argoproj.io/sync-options: Prune=false
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:

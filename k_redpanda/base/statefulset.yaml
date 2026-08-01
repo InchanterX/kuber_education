@@ -99,6 +99,7 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: test-redpanda
+        argocd.argoproj.io/sync-options: Prune=false
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
