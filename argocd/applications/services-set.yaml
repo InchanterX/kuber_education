@@ -33,7 +33,7 @@ spec:
         path: 'kustomization/{{ index .path.segment 1 }}/overlays/dev'
 
       destination:
-        server: https: https://kubernetes.default.svc
+        server: https://kubernetes.default.svc
         namespace: '{{ index .path.segment 1 }}-dev'
 
   syncPolicy:
@@ -56,3 +56,6 @@ spec:
       kind: Deployment
       jsonPointers:
         - /spec/replicas
+
+  syncPolicy:
+    preserveResourcesOnDeletion: false
