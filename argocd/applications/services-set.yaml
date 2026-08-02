@@ -20,7 +20,7 @@ spec:
             exclude: true
   template:
     metadata:
-      name: '{{ index .path.segment 1 }}-dev'
+      name: '{{ index .path.segments 1 }}-dev'
       namespace: argocd
       finalizers:
         - resources-finalizer.argocd.argoproj.io/foreground
@@ -30,11 +30,11 @@ spec:
       source:
         repoURL: https://github.com/InchanterX/kuber_education.git
         targetRevision: main
-        path: 'kustomization/{{ index .path.segment 1 }}/overlays/dev'
+        path: 'kustomization/{{ index .path.segments 1 }}/overlays/dev'
 
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{ index .path.segment 1 }}-dev'
+        namespace: '{{ index .path.segments 1 }}-dev'
 
       syncPolicy:
         syncOptions:
