@@ -36,26 +36,26 @@ spec:
         server: https://kubernetes.default.svc
         namespace: '{{ index .path.segment 1 }}-dev'
 
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
-      automated:
-        enabled: true
-        prune: true
-        selfHeal: true
-        allowEmpty: false
-      retry:
-        limit: 5
-        backoff:
-          duration: 5s
-          factor: 2
-          maxDuration: 3m
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          enabled: true
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
 
-    ignoreDifferences:
-      - group: apps
-        kind: Deployment
-        jsonPointers:
-          - /spec/replicas
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/replicas
 
-    syncPolicy:
-      preserveResourcesOnDeletion: false
+      syncPolicy:
+        preserveResourcesOnDeletion: false
