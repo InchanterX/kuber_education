@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: https://github.com/InchanterX/kuber_education.git
     targetRevision: main
-    path: broker/overlays/dev
+    path: kustomization/broker/overlays/dev
 
   destination:
     name: in-cluster
