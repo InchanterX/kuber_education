@@ -5,3 +5,13 @@ namespace: argocd
 resources:
   - namespace.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/v3.4.5/manifests/install.yaml
+
+patches:
+  - path: patches/argocd-cm.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-cm
+  - path: patches/argocd-rbac-cm.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-rbac-cm

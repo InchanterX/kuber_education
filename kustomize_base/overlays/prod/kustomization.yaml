@@ -15,7 +15,7 @@ configMapGenerator:
   - name: api-config
     behavior: merge
     literals:
-      - KAFKA_BOOTSTRAP=redpanda.event-brocker-prod.svc.cluster.local:9092
+      - KAFKA_BOOTSTRAP=redpanda.event-broker-prod.svc.cluster.local:9092
 patches:
   - path: patches/deployment.yaml
   - path: patches/postgres/statefulset.yaml

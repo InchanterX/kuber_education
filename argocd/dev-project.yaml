@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: services-project
+  namespace: argocd
+spec:
+  description: Project for services infrastructure
+
+  sourceRepos:
+    - https://github.com/InchanterX/kuber_education
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: '*-service-dev'
+    - server: https://kubernetes.default.svc
+      namespace: '*-service-prod'
+    - server: https://kubernetes.default.svc
+      namespace: '*-broker-dev'
+    - server: https://kubernetes.default.svc
+      namespace: '*-broker-prod'
+
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+  clusterResourceBlacklist:
+    - group: '*'
+      kind: '*'
+
+  namespaceResourceBlacklist:
+    - group: ''
+      kind: LimitRange
+    - group: ''
+      kind: ResourceQuota
+    - group: 'networking.k8s.io'
+      kind: NetworkPolicy
+
+  orphanedResources:
+    warn: true
+
+  roles:
+    - name: deployer
+      policies:
+        # формат subject: proj:<проект>:<роль>
+        - p, proj:team-backend:deployer, applications, sync, team-backend/*, allow
+        - p, proj:team-backend:deployer, applications, get,  team-backend/*, allow

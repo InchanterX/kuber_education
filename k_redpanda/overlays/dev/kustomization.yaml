@@ -5,7 +5,7 @@ resources:
 replicas:
   - name: redpanda
     count: 1
-namespace: event-brocker-dev
+namespace: event-broker-dev
 labels:
   - pairs:
       enviroment: dev

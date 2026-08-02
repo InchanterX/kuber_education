@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: services-project
 
   source:
     repoURL: https://github.com/InchanterX/kuber_education.git

@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
-  project: default
+  project: services-project
 
   source:
     repoURL: https://github.com/InchanterX/kuber_education.git
@@ -15,7 +15,7 @@ spec:
 
   destination:
     name: in-cluster
-    namespace: event-brocker-dev
+    namespace: event-broker-dev
 
   syncPolicy:
     syncOptions:
