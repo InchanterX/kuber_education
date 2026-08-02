@@ -14,9 +14,9 @@ spec:
         revision: main
         directories:
           - path: kustomization/*/overlays/dev
-          - path: kustomization/broker/**
+          - path: kustomization/broker/overlays/dev
             exclude: true
-          - path: kustomization/infrastructure/**
+          - path: kustomization/infrastructure/overlays/dev
             exclude: true
   template:
     metadata:
