@@ -25,7 +25,7 @@ spec:
       finalizers:
         - resources-finalizer.argocd.argoproj.io/foreground
     spec:
-      project: service-project
+      project: services-project
 
       source:
         repoURL: https://github.com/InchanterX/kuber_education.git
