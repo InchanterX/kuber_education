@@ -56,6 +56,3 @@ spec:
           kind: Deployment
           jsonPointers:
             - /spec/replicas
-
-      syncPolicy:
-        preserveResourcesOnDeletion: false
