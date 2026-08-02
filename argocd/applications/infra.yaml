@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: infra-dev
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
@@ -11,7 +13,7 @@ spec:
   source:
     repoURL: https://github.com/InchanterX/kuber_education.git
     targetRevision: main
-    path: k_infra/overlays/dev
+    path: kustomization/infrastructure/overlays/dev
 
   destination:
     name: in-cluster
@@ -35,4 +37,4 @@ spec:
   revisionHistoryLimit: 10
   info:
     - name: "Infrastructure:"
-      value: "https://github.com/InchanterX/kuber_education/k_infra"
+      value: "https://github.com/InchanterX/kuber_education/infrastructure"

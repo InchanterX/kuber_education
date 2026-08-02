@@ -3,6 +3,8 @@ kind: AppProject
 metadata:
   name: services-project
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   description: Project for services infrastructure
 
@@ -11,20 +13,13 @@ spec:
 
   destinations:
     - server: https://kubernetes.default.svc
-      namespace: '*-service-dev'
+      namespace: 'project-service-*'
     - server: https://kubernetes.default.svc
-      namespace: '*-service-prod'
-    - server: https://kubernetes.default.svc
-      namespace: '*-broker-dev'
-    - server: https://kubernetes.default.svc
-      namespace: '*-broker-prod'
+      namespace: 'event-broker-*'
 
   clusterResourceWhitelist:
     - group: ''
       kind: Namespace
-  clusterResourceBlacklist:
-    - group: '*'
-      kind: '*'
 
   namespaceResourceBlacklist:
     - group: ''

@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: services
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/InchanterX/kuber_education.git
+        revision: main
+        directories:
+          - path: kustomization/*/overlays/dev
+          - path: kustomization/brocker/*
+            exclude: true
+          - path: kustomization/infrastructure/*
+            exclude: true
+  template:
+    metadata:
+      name: '{{ index .path.segment 1 }}-dev'
+      namespace: argocd
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io/foreground
+    spec:
+      project: service-project
+
+      source:
+        repoURL: https://github.com/InchanterX/kuber_education.git
+        targetRevision: main
+        path: 'kustomization/{{ index .path.segment 1 }}/overlays/dev'
+
+      destination:
+        server: https: https://kubernetes.default.svc
+        namespace: '{{ index .path.segment 1 }}-dev'
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas

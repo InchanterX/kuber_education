@@ -1,21 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: project-service-dev
+  name: redpanda-dev
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io/foreground
 spec:
   project: services-project
 
   source:
     repoURL: https://github.com/InchanterX/kuber_education.git
     targetRevision: main
-    path: kustomize_base/overlays/dev
+    path: broker/overlays/dev
 
   destination:
-    server: https://kubernetes.default.svc
-    namespace: project-service-dev
+    name: in-cluster
+    namespace: event-broker-dev
 
   syncPolicy:
     syncOptions:
@@ -32,8 +34,7 @@ spec:
         factor: 2
         maxDuration: 3m
 
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/replicas
+  revisionHistoryLimit: 10
+  info:
+    - name: "Redpanda:"
+      value: "https://github.com/InchanterX/kuber_education/broker"
