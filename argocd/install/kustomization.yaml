@@ -15,3 +15,7 @@ patches:
     target:
       kind: ConfigMap
       name: argocd-rbac-cm
+  - path: patches/argocd-cmd-params-cm.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-cmd-params-cm
