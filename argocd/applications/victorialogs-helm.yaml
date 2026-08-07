@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/VictoriaMetrics/helm-charts.git
     path: charts/victoria-logs-cluster
-    targetRevision: victoria-metrics-cluster-0.48.0
+    targetRevision: victoria-logs-cluster-0.2.8
     helm:
       valueFiles:
         - values.yaml
