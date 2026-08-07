@@ -2,11 +2,13 @@ apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
   name: postgres-auth
-  namespace: default
+  namespace: project-service-dev
+  annotations:
+      argocd.argoproj.io/sync-wave: "-2"
 spec:
   encryptedData:
-    POSTGRES_PASSWORD: AgAbASaLkL6+SmvC2eI5rIC8Pz0iCwlt07t0Mt8j7devW/2Syjg+ZGSgGFxuZXLdjqGG6UPq2C/6guXLTnufNT/IDeiyGjGUhdi6V/8EnXJhL6TTELfLqqj3xgqaA+z3fmMyiPjUgXCizFYtZLBI1H1uBh8ObBlmwqKOxPl7xP5QJlUyi6KQCI+LQ9T2/sfv1MIm57AtxoFkcrlnU5A6/17akSkbaAZoJmI1vxFKcl0EZ4PhkqDYRgLX/o14E3NNvx6tUqk+ty9RwITbOMei+THH/AVfJgKZoC2oeyCYO4zk2Uh1kRZBjSesaab1DxHVQzpKL8EsN2jnTaBLsFAdPgqXIoBDFY9fjyBrNnXTbW7TD53DfFzzepJKSb+rUjPLHf6yS7xz9En01pfOZln9ysB6KRXTjGArIaV1U74Tn2wfEVejCawxXkEe5eNN1muMxZO/VhEN3NTw0040rZMvHoYh6yoAKRvAIID/GuO6zNHSSu1DsJgUoF+7DE2ZiGP26Pvvdh0zUZsgB1v26cDkx65RWHT+ue8dWRtKA3BxtHMgn8Xpr9DE5RGtCaVPRirkZal3EeTU/StcvSrD7E3i+v/kKFZ9Ai88tGtjlqzoWnZKfDAFvWs4NT7luCtPu8DoZEOli1E3gJEUl8lTqnJi+UatToAb4sXM+TravNAn8GFQmUnw2fb1aX0R0MmFUjrPzbMu8eX3hTUA3ftewSrYutirkRdW3A==
+    POSTGRES_PASSWORD: AgBLrnlRjZpSBRo86TFO+XemKdKYJ+2B4GOefjwvHuPT8OlK8XATiLeTsOKhaC1hDka7C+4w+VaNP90d0Pf3iWu6o7ec7af39b9v/phsL5NEbkmSJt0pc/jl0sa8NScCuaNbeWOAu114WF7xnE4ML+9Rz5eBAdaPZvfj3qKJJTDwRHBdKaK/sgRe6yylLxJjqoX+9lbj0K/IXHUdw4lx4nIUN8VfkDs2zXYNSRKps9uCg7WlqMZfaOmeBWg+Y6wart0T8S8YNouEbDt4uJOm9q5dM1tZEWXqysgfGiZb5741qd7/UmAxAKouCB0Kcvm/U9WdQJT8i6C5kkw90o1D1oKFU5okXkBCq87sd9L27zq4EeOKXAgjhdF+LpLM8M2ysgYFYrQCI8uP9c2iC4O4OgCBZd+H+u3UOJw0wnt7mYrSC3rZRUCuLuvZ03ymLhRIHw6G3MgpncSrrWqfk2Q7nxgQUTyN8KH4dPwtorUsORosgHOI+fDzrMiV1/mWby93NyRi7dAsobmx4CGKGJF5/zj65vOOS3cdvwo9noisq3cZnut9L3s1Wv9nblj/LtJtA7nNrjdD62XGRreSYNQl/xMA+tywNZRWRMwBQPwUgvsEBfBLWLejdqOlviEBfZakkYX6JHTecrizVj+29G/9fMoRZKpznTkxxrNV91D8cpY7ike9K3ZA6MMWmFGjlZ56sdDZtx6BvLyTc8ObxCiMH6hB+t2DUQ==
   template:
     metadata:
       name: postgres-auth
-      namespace: default
+      namespace: project-service-dev
