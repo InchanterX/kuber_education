@@ -9,6 +9,7 @@ metadata:
     app.kubernetes.io/version: "latest"
     app.kubernetes.io/component: microservice
   annotations:
+    argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "-1"
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
 spec:
