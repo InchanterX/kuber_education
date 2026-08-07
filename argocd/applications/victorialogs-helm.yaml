@@ -7,9 +7,9 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/VictoriaMetrics/helm-charts.git
-    path: charts/victoria-logs-cluster
-    targetRevision: victoria-logs-cluster-0.2.8
+    repoURL: https://victoriametrics.github.io/helm-charts/
+    chart: victoria-logs-cluster
+    targetRevision: 0.2.8
     helm:
       valueFiles:
         - values.yaml
@@ -28,7 +28,6 @@ spec:
     syncOptions:
       - CreateNamespace=true
     automated:
-      enabled: true
       prune: true
       selfHeal: true
       allowEmpty: false
