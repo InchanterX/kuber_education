@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: victorialogs
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/VictoriaMetrics/helm-charts.git
+    path: charts/victoria-logs-cluster
+    targetRevision: victoria-metrics-cluster-0.48.0
+    helm:
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: victoria-stack
+
+  revisionHistoryLimit: 10
+
+  info:
+    - name: 'victoria-logs-cluster:'
+      value: 'https://github.com/VictoriaMetrics/helm-charts/charts/victoria-logs-cluster'
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
