@@ -4,7 +4,7 @@ metadata:
   name: postgres-auth
   namespace: project-service-dev
   annotations:
-    argocd.argoproj.io/sync-wave: "-2"
+    argocd.argoproj.io/sync-wave: "-3"
 spec:
   encryptedData:
     POSTGRES_PASSWORD: AgBcynw3aeDsZiiarUqfYl4E1XfhmsAvXg5H8bl7oCX0P/XfAVKX6zjsXg9ceznYLaQRZShTNaHwDvU08ggRBxdJalo5BBcs1gG9UPSV1VDRfYccGiW+4HQzjSNUibfvJMDdmjBp0vmSomKcBkJvUyh6tyfAafsIwljneB8zvvZws4Ct1b4pV//ZXoO8Mzyb+YT84W61NSQo5TR8+GLVmxr4gufs6NmdSl5LmHptsCFTsZGQZE1RqFX9YUKFg9b4iEkaWz907eP22ZZNqepm/9dkwhS/PyeZd7G1SIUTSjJaDEpc8nQ4oSVlu6zwy9bqJ6DOOv3CEml8tOoc2duawcfwPHPqhYqhAr5ZBTFepWlj2h3wFcRFX6J8HmDjSd/fpZ4HWsPVYBQszMdasnaTgozYCYbywihqM9os0vCsBlF8uRJ2lPEXPuR7fxhmXULGZSZnk84IBaBXqN0ezTEEZkyRRytqTmj/Zq15vqrnUuN499Br+BlO6TX9l+Q9g/NonH5l1UMmEXoDtimGQPmUFREiS5EIny6IOG0X46GS40Nosh9eL7awk/wwqxa4u3wIc+l5guCQORW7MiF+FKOHnUxQb6CDvN44cSySlIH8OxbLjHf3jWrf1I1KC2Xxg8bj5RYPCIjma0ZJrWj/gGHUA/jqwDTX6pqfOFAtJB3o2XtEcAksgagCCWcFj2sb4oFiuZscU5+bEjdL9/5aptV02ygg3UjKJentAmFd0C7avDpk
