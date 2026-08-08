@@ -8,6 +8,8 @@ metadata:
     app.kubernetes.io/version: "latest"
     app.kubernetes.io/managed-by: Me
     app.kubernetes.io/component: microservice
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
