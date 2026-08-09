@@ -25,9 +25,9 @@ spec:
       finalizers:
         - resources-finalizer.argocd.argoproj.io/foreground
       annotations:
-        notifications.argoproj.io/subscribe.on-sync-failed.telegram: "5166072488"
-        notifications.argoproj.io/subscribe.on-sync-degraded.telegram: "5166072488"
-        notifications.argoproj.io/subscribe.on-deployed.telegram: "5166072488"
+        notifications.argoproj.io/subscribe.on-sync-failed.telegram: "-5489014289"
+        notifications.argoproj.io/subscribe.on-sync-degraded.telegram: "-5489014289"
+        notifications.argoproj.io/subscribe.on-deployed.telegram: "-5489014289"
     spec:
       project: services-project
 
