@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: argocd-notifications-cm
 data:
+  service.telegram: |
+    token: $telegram-token
   trigger.on-sync-failed: |
     - when: app.status.operationState.phase in ['Error', 'Failed']
       send: [app-sync-failed]

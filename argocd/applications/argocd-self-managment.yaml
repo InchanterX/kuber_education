@@ -14,7 +14,7 @@ spec:
     - group: ""
       kind: Secret
       name: argocd-notifications-secret
-      jsojsonPointers:
+      jsonPointers:
         - /data
 
   source:
