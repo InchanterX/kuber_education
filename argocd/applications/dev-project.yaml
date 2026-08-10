@@ -8,10 +8,6 @@ metadata:
 spec:
   description: Project for services infrastructure
 
-  signatureKeys:
-    - keyID: D5E51FE406BF3E23
-    - keyID: B5690EEEBB952194
-
   sourceRepos:
     - https://github.com/InchanterX/kuber_education
 
