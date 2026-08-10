@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infra-project
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  description: Project for infrastructure elements
+
+  # signatureKeys:
+  #   - keyID: D5E51FE406BF3E23
+
+  sourceRepos:
+    - https://github.com/InchanterX/kuber_education
+    - https://bitnami.github.io/sealed-secrets
+    - https://victoriametrics.github.io/helm-charts/
+    - https://stakater.github.io/stakater-charts
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: 'argocd'
+    - server: https://kubernetes.default.svc
+      namespace: 'victoria-stack'
+    - server: https://kubernetes.default.svc
+      namespace: 'infrastructure-dev'
+
+  orphanedResources:
+    warn: true
+
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
