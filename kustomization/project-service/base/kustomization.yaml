@@ -8,12 +8,19 @@ resources:
 - namespace.yaml
 - service-pdb.yaml
 - service-hpa.yaml
-- postgres-sealed.yaml
 - ./postgres
 configMapGenerator:
 - envs:
   - config.txt
   name: api-config
   options:
+    annotations:
+      argocd.argoproj.io/sync-wave: "-3"
+secretGenerator:
+- envs:
+  - secret.txt
+  name: postgres-auth
+  options:
+    disableNameSuffixHash: true
     annotations:
       argocd.argoproj.io/sync-wave: "-3"

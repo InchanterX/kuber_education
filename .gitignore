@@ -1,1 +1,6 @@
 .vscode
+
+*.key
+sealed-secrets.crt
+
+!admission/tls.key

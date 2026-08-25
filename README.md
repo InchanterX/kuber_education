@@ -4,4 +4,4 @@ Currently there are:
 - Helm
 - Kustomize
 
-I plan to deepen my knowladge to the cert-manager, OPA, Vault and observability.
+I plan to deepen my knowledge to the cert-manager, OPA, Vault and observability.
