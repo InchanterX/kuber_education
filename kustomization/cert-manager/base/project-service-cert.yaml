@@ -3,6 +3,8 @@ kind: Certificate
 metadata:
   name: project-svc-cert
   namespace: project-service-dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   secretName: project-svc-tls
   dnsNames:
