@@ -4,3 +4,7 @@ resources:
   - prod-cert.yaml
   - prod-issuer.yaml
   - cloudflare-token-secret.yaml
+  - ca-certificate.yaml
+  - ca-issuer.yaml
+  - project-service-cert.yaml
+  - project-service-issuer.yaml
