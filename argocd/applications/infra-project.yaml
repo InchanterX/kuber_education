@@ -20,6 +20,8 @@ spec:
 
   destinations:
     - server: https://kubernetes.default.svc
+      namespace: 'default'
+    - server: https://kubernetes.default.svc
       namespace: 'argocd'
     - server: https://kubernetes.default.svc
       namespace: 'victoria-stack'
