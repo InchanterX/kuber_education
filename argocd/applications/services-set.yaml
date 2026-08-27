@@ -18,6 +18,8 @@ spec:
             exclude: true
           - path: kustomization/infrastructure/overlays/dev
             exclude: true
+          - path: kustomization/cert-manager/overlays/dev
+            exclude: true
   template:
     metadata:
       name: '{{ index .path.segments 1 }}-dev'
