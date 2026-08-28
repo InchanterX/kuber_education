@@ -4,7 +4,7 @@ metadata:
   name: services
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "10"
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -19,6 +19,8 @@ spec:
           - path: kustomization/infrastructure/overlays/dev
             exclude: true
           - path: kustomization/cert-manager/overlays/dev
+            exclude: true
+          - path: kustomization/gateway-api/overlays/dev
             exclude: true
   template:
     metadata:
