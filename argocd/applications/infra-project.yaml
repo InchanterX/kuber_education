@@ -37,6 +37,8 @@ spec:
       namespace: 'infrastructure-dev'
     - server: https://kubernetes.default.svc
       namespace: 'harbor'
+    - server: https://kubernetes.default.svc
+      namespace: 'local-path-storage'
 
   clusterResourceWhitelist:
     - group: '*'
