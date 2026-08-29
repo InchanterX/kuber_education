@@ -26,3 +26,15 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: registry-https
+      protocol: HTTPS
+      port: 443
+      hostname: registry.faberge-eggs.ru
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: registry-tls
+      allowedRoutes:
+        namespaces:
+          from: All
