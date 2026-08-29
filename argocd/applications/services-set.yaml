@@ -22,6 +22,8 @@ spec:
             exclude: true
           - path: kustomization/gateway-api/overlays/dev
             exclude: true
+          - path: kustomization/local-path/overlays/dev
+            exclude: true
   template:
     metadata:
       name: '{{ index .path.segments 1 }}-dev'
