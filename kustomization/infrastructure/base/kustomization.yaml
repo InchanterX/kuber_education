@@ -8,7 +8,6 @@ resources:
   - priority-high.yaml
   - priority-critical.yaml
   - project-service-quota.yaml
-  - storage-class-retain.yaml
 namespace: infrastructure
 patches:
   - patch: |-
