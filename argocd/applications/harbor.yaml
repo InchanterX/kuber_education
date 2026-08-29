@@ -48,7 +48,8 @@ spec:
             type: internal
           trivy:
             enabled: true
-          harborAdminPassword: temp
+          existingSecretAdminPassword: harbor-admin-secret
+          existingSecretAdminPasswordKey: HARBOR_ADMIN_PASSWORD
     - repoURL: https://github.com/InchanterX/kuber_education.git
       targetRevision: main
       path: kustomization/harbor/overlays/dev
