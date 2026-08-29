@@ -18,6 +18,7 @@ spec:
     - https://victoriametrics.github.io/helm-charts/
     - https://stakater.github.io/stakater-charts
     - https://charts.jetstack.io
+    - https://helm.goharbor.io
 
   destinations:
     - server: https://kubernetes.default.svc
@@ -34,6 +35,8 @@ spec:
       namespace: 'victoria-stack'
     - server: https://kubernetes.default.svc
       namespace: 'infrastructure-dev'
+    - server: https://kubernetes.default.svc
+      namespace: 'harbor'
 
   clusterResourceWhitelist:
     - group: '*'
