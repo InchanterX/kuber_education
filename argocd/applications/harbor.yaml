@@ -10,45 +10,49 @@ metadata:
 spec:
   project: infra-project
 
-  source:
-    repoURL: https://helm.goharbor.io
-    targetRevision: 1.19.2
-    chart: harbor
-    helm:
-      values: |
-        expose:
-          type: clusterIP
-          tls:
-            enabled: false
+  sources:
+    - repoURL: https://helm.goharbor.io
+      targetRevision: 1.19.2
+      chart: harbor
+      helm:
+        values: |
+          expose:
+            type: clusterIP
+            tls:
+              enabled: false
 
-        externalURL: https://registry.faberge-eggs.ru
+          externalURL: https://registry.faberge-eggs.ru
 
-        persistence:
-          enabled: true
-          persistentVolumeClaim:
-            registry:
-              storageClass: local-path-retain
-              size: 50Gi
-            database:
-              storageClass: local-path-retain
-              size: 5Gi
-            redis:
-              storageClass: local-path
-              size: 1Gi
-            trivy:
-              storageClass: local-path
-              size: 5Gi
-            jobservice:
-              jobLog:
+          persistence:
+            enabled: true
+            persistentVolumeClaim:
+              registry:
+                storageClass: local-path-retain
+                size: 50Gi
+              database:
+                storageClass: local-path-retain
+                size: 5Gi
+              redis:
                 storageClass: local-path
                 size: 1Gi
-        database:
-          type: internal
-        redis:
-          type: internal
-        trivy:
-          enabled: true
-        harborAdminPassword: temp
+              trivy:
+                storageClass: local-path
+                size: 5Gi
+              jobservice:
+                jobLog:
+                  storageClass: local-path
+                  size: 1Gi
+          database:
+            type: internal
+          redis:
+            type: internal
+          trivy:
+            enabled: true
+          harborAdminPassword: temp
+    - repoURL: https://github.com/InchanterX/kuber_education.git
+      targetRevision: main
+      path: kustomization/harbor/overlays/dev
+
 
   destination:
     server: https://kubernetes.default.svc
