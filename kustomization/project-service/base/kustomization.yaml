@@ -8,6 +8,8 @@ resources:
 - namespace.yaml
 - service-pdb.yaml
 - service-hpa.yaml
+- serviceaccount.yaml
+- registry-secret.yaml
 - ./postgres
 configMapGenerator:
 - envs:
