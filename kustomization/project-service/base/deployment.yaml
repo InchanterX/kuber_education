@@ -26,7 +26,10 @@ spec:
         app.kubernetes.io/component: microservice
     spec:
       priorityClassName: middle
+      serviceAccountName: harbor-pull-access
       containers:
+      - name: test-nginx
+        image: registry.faberge-eggs.ru/test/nginx-test:1.27
       - name: app
         image: inchanterx/faberge-project-service:latest
         imagePullPolicy: IfNotPresent
