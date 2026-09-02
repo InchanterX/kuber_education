@@ -4,3 +4,4 @@ metadata:
   name: argocd-cmd-params-cm
 data:
   reposerver.git.request.timeout: "300"
+  server.insecure: "true"

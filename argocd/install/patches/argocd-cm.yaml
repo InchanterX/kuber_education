@@ -4,3 +4,4 @@ metadata:
   name: argocd-cm
 data:
   accounts.deployer: apiKey, login
+  url: https://argocd.faberge-eggs.ru
