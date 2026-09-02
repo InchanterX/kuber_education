@@ -38,3 +38,15 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: argocd-https
+      protocol: HTTPS
+      port: 443
+      hostname: argocd.faberge-eggs.ru
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: argocd-tls
+      allowedRoutes:
+        namespaces:
+          from: All
