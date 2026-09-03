@@ -56,7 +56,7 @@ spec:
 
   info:
     - name: 'Vault'
-      value: 'https://helm.releases.hashicorp.com'
+      value: 'https://registry.faberge-eggs.ru/mirror'
 
   syncPolicy:
     syncOptions:
