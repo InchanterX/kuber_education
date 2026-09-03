@@ -1,0 +1,12 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: vault-transit-token
+  namespace: vault
+spec:
+  encryptedData:
+    token: AgBcPNbXjie5iQHQFNVQHx4UauUc2RUTRPr2Ar+xDrH3vy+GbRESfUIS7BLceLHUfhOQQXI3496QIe/9gxbHsZP7aVC+A17k2CuODDXDsv2KImkuNldiR00MHKCBaDmUB7ET1hoJqd7HbIcivHF3IHglUQTKAWnPLNNTEy5q6bvSbhcIo753k+gyRZ+tSw5cF2Tu+fP4g4X+yncRXRAah/ZA/NhItZSF9rs7VMXSEaZas4o6VK2nxDp62KS995ZLe8cvnrTLk4UTOa7HXl1ZGl8PbcKDWYJXCrWfII7dr2+9DoVRcH9JRLhc7JJv2z93PMb9QpIuvXqvcrjyrs30aKwC1jQtf4FEcX8P9x4Z3S69jEQKHXTiMrJVOtNDA1m4OVOeHqBeNtjQtOM1W/7TuykoxGCR59DU9aeoTgLIDTXI3aD6chxvbiI2bZXXlH6QShbtzSytSUP5WIn8ne9VxJ3HQinGqkKOpFim5c3ldU3VKDNRKA7tZJ9G757MhBU8yRs94qhucnkGUB5/APsSdrF0qD0ySddr2ZLrLyZ7kVHRM8CUqjJvNfIUImcmW81ubW1vanlP8AzKJ8cy4+j//71S2rHzMAaMOzcIJhrdDgyxWV5qBHL52wwC7n4fEI7D4gX3hy5Rsoo+RfM3ug7nMqkDWmCMvA9OAH7c7NKRsl5dWEPhamm4nR+c+j8xZ3OxqznuJYH9diZw3JHD8tAGr35uV5ULEpek8W4HmQ2epkwlQjsVGIUVsxThvT3W00YqMy14RLbt6w5aOvdX51u+rxWRX2qqCxEESh0C5hUW1ix+VGEGCXgKx02JezavAxqYIg==
+  template:
+    metadata:
+      name: vault-transit-token
+      namespace: vault

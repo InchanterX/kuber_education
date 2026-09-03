@@ -35,8 +35,18 @@ spec:
                   storage "raft" {
                     path = "/vault/data"
                   }
+                  seal "transit" {
+                    address   = "http://10.0.0.1:8200"
+                    key_name  = "autounseal-main"
+                    mount_path = "transit/"
+                  }
                   service_registration "kubernetes" {}
                   disable_mlock = true
+            extraEnvironmentVars: {}
+            extraSecretEnvironmentVars:
+              - envName: VAULT_SEAL_TRANSIT_TOKEN
+                secretName: vault-transit-token
+                secretKey: token
             dataStorage:
               enabled: true
               size: 5Gi
