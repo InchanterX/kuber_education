@@ -36,7 +36,7 @@ spec:
                     path = "/vault/data"
                   }
                   seal "transit" {
-                    address   = "http://10.0.0.1:8200"
+                    address   = "http://10.8.0.1:8200"
                     key_name  = "autounseal-main"
                     mount_path = "transit/"
                   }
