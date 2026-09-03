@@ -50,3 +50,15 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: vault-https
+      protocol: HTTPS
+      port: 443
+      hostname: vault.faberge-eggs.ru
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: vault-tls
+      allowedRoutes:
+        namespaces:
+          from: All

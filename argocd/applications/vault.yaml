@@ -1,0 +1,73 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+  annotations:
+    argoproj.argocd.io/sync-wave: "3"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  project: infra-project
+
+  sources:
+    - repoURL: https://helm.releases.hashicorp.com
+      chart: vault
+      targetRevision: 0.34.1
+      helm:
+        values: |
+          global:
+            tlsDisable: true
+          server:
+            ha:
+              enabled: true
+              replicas: 1
+              raft:
+                enabled: true
+                setNodeId: true
+                config: |
+                  ui = true
+                  listener "tcp" {
+                    address       = "[::]:8200"
+                    cluster_address = "[::]:8201"
+                    tls_disable   = 1
+                  }
+                  storage "raft" {
+                    path = "/vault/data"
+                  }
+                  service_registration "kubernetes" {}
+                  disable_mlock = true
+            dataStorage:
+              enabled: true
+              size: 5Gi
+              storageClass: local-path-retain
+              mountPath: /vault/data
+          ui:
+            enabled: true
+    - repoURL: https://github.com/InchanterX/kuber_education.git
+      targetRevision: main
+      path: kustomization/vault-router/overlays/dev
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault
+
+  revisionHistoryLimit: 10
+
+  info:
+    - name: 'Vault'
+      value: 'https://helm.releases.hashicorp.com'
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

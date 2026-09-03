@@ -28,6 +28,8 @@ spec:
             exclude: true
           - path: kustomization/argocd-router/overlays/dev
             exclude: true
+          - path: kustomization/vault-router/overlays/dev
+            exclude: true
   template:
     metadata:
       name: '{{ index .path.segments 1 }}-dev'
