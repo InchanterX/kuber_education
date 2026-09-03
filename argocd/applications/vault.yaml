@@ -52,6 +52,13 @@ spec:
     server: https://kubernetes.default.svc
     namespace: vault
 
+  ignoreDifference:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      name: vault-agent-injector-cfg
+      jqPathExpression:
+        - '.webhook[]?.clientConfig.caBundle'
+
   revisionHistoryLimit: 10
 
   info:
