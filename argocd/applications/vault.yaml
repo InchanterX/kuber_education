@@ -44,7 +44,7 @@ spec:
                   disable_mlock = true
             extraEnvironmentVars: {}
             extraSecretEnvironmentVars:
-              - envName: VAULT_SEAL_TRANSIT_TOKEN
+              - envName: VAULT_TOKEN
                 secretName: vault-transit-token
                 secretKey: token
             dataStorage:
