@@ -57,7 +57,7 @@ spec:
       kind: MutatingWebhookConfiguration
       name: vault-agent-injector-cfg
       jqPathExpression:
-        - '.webhook[]?.clientConfig.caBundle'
+        - '.webhooks[]?.clientConfig.caBundle'
 
   revisionHistoryLimit: 10
 
