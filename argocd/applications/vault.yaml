@@ -11,7 +11,7 @@ spec:
   project: infra-project
 
   sources:
-    - repoURL: https://helm.releases.hashicorp.com
+    - repoURL: registry.faberge-eggs.ru/mirror
       chart: vault
       targetRevision: 0.34.1
       helm:
