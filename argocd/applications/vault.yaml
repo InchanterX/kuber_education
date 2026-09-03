@@ -4,7 +4,7 @@ metadata:
   name: vault
   namespace: argocd
   annotations:
-    argoproj.argocd.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "3"
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
@@ -56,7 +56,7 @@ spec:
     - group: admissionregistration.k8s.io
       kind: MutatingWebhookConfiguration
       name: vault-agent-injector-cfg
-      jqPathExpression:
+      jqPathExpressions:
         - '.webhooks[]?.clientConfig.caBundle'
 
   revisionHistoryLimit: 10
@@ -68,6 +68,7 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true
     automated:
       prune: true
       selfHeal: true
