@@ -56,7 +56,7 @@ spec:
     - group: admissionregistration.k8s.io
       kind: MutatingWebhookConfiguration
       name: vault-agent-injector-cfg
-      jqPathExpressions:
+      jqPathExpression:
         - '.webhooks[]?.clientConfig.caBundle'
 
   revisionHistoryLimit: 10
