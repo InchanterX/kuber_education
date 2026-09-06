@@ -20,7 +20,6 @@ spec:
     - https://charts.jetstack.io
     - https://helm.goharbor.io
     - registry.faberge-eggs.ru/mirror
-    - https://registry.faberge-eggs.ru/mirror
 
   destinations:
     - server: https://kubernetes.default.svc

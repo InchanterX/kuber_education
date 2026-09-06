@@ -11,7 +11,7 @@ spec:
   project: infra-project
 
   source:
-    repoURL: https://registry.faberge-eggs.ru/mirror
+    repoURL: registry.faberge-eggs.ru/mirror
     chart: vault-secrets-operator
     targetRevision: 1.5.1
     helm:
